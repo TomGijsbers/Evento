@@ -1,0 +1,18 @@
+/* You can add custom CSS here if needed */
+
+/* Bauhaus-style spinner */
+::ng-deep .mat-mdc-progress-spinner.mat-accent circle {
+  stroke: #000000 !important;
+}
+
+/* Smooth transitions for content changes */
+mat-card {
+  transition: all 0.3s ease;
+}
+
+/* Add shadow effect on hover */
+mat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 12px 12px 0px 0px rgba(0,0,0,1);
+}
+

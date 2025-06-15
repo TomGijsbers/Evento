@@ -1,0 +1,283 @@
+/* Custom stijlen bovenop Tailwind CSS */
+
+/* --- LINE CLAMP UTILITY --- */
+/* Helper voor tekst afkappen met ellipsis na x regels */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- BAUHAUS LOADER STIJLEN --- */
+.bauhaus-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bauhaus-loader-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.bauhaus-square {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  animation: bauhaus-move 3s infinite ease-in-out;
+}
+
+.bauhaus-square:nth-child(1) {
+  top: 0;
+  left: 0;
+  animation-delay: 0s;
+}
+
+.bauhaus-square:nth-child(2) {
+  top: 0;
+  right: 0;
+  animation-delay: 0.5s;
+}
+
+.bauhaus-square:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  animation-delay: 1s;
+}
+
+.bauhaus-circle {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+  background-color: white; /* As per original TS */
+  animation: bauhaus-rotate 4s infinite linear;
+}
+
+.bauhaus-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: bauhaus-pulse 2s infinite ease-in-out;
+}
+
+/* Animaties voor Bauhaus Loader */
+@keyframes bauhaus-move {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(20px, 20px); }
+  50% { transform: translate(0, 40px); }
+  75% { transform: translate(-20px, 20px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes bauhaus-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes bauhaus-pulse {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* --- BAUHAUS FORMULIER STIJLEN --- */
+/* Consistent maken van form controls in Bauhaus stijl */
+input, select, textarea {
+  border-radius: 0 !important; /* Harde hoeken voor Bauhaus stijl */
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: black !important;
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 0 rgba(0,0,0,1);
+}
+
+/* --- ANIMATIE STIJLEN --- */
+/* Schaduw en transform animaties voor interactieve elementen */
+[class*="shadow-"] {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect voor knoppen */
+button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 0 rgba(0,0,0,1);
+}
+
+/* Active feedback voor knoppen */
+button:active:not(:disabled) {
+  transform: translateY(0) !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,1) !important;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* --- MODAL ANIMATIES --- */
+/* Fade-in effect voor modals */
+.modal-backdrop {
+  animation: fadeIn 0.3s ease-in-out;
+  backdrop-filter: blur(3px);
+}
+
+/* Slide-in effect voor modal content */
+.modal-content {
+  animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: center;
+}
+
+/* Keyframe animatie definities */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- CUSTOM SCROLLBAR --- */
+/* Gestileerde scrollbar voor modals */
+.overflow-auto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overflow-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+ 
+.overflow-auto::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 0;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* --- SIMPLE SNACKBAR BASE STYLES (from original .ts) --- */
+/* These were the original styles in events.component.ts */
+/* They might be overridden by the more specific ::ng-deep rules below */
+.snackbar-success {
+  background-color: #4caf50; /* Original green */
+  color: white;
+  font-weight: bold;
+}
+
+.snackbar-error {
+  background-color: #f44336; /* Original red */
+  color: white;
+  font-weight: bold;
+}
+
+.snackbar-info {
+  background-color: #2196f3; /* Original blue */
+  color: white;
+  font-weight: bold;
+}
+
+.bauhaus-snackbar {
+  /* This class is also styled extensively with ::ng-deep below */
+  font-family: 'Bauhaus 93', cursive; /* Original font */
+  letter-spacing: 1px; /* Original spacing */
+  text-transform: uppercase;
+}
+
+/* --- BAUHAUS SNACKBAR STIJLEN (::ng-deep for Material Components) --- */
+/* Custom styling for Material Snackbar in Bauhaus stijl */
+::ng-deep .bauhaus-snackbar {
+  border: 3px solid black !important;
+  border-radius: 0 !important;
+  box-shadow: 6px 6px 0 rgba(0,0,0,1) !important;
+  font-weight: bold !important;
+  font-family: inherit !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  min-width: 300px !important;
+}
+
+/* Succes snackbar in groen */
+::ng-deep .snackbar-success {
+  background-color: #22c55e !important;
+  color: black !important;
+}
+
+/* Error snackbar in rood */
+::ng-deep .snackbar-error {
+  background-color: #dc2626 !important;
+  color: white !important;
+}
+
+/* Info snackbar in blauw */
+::ng-deep .snackbar-info {
+  background-color: #3b82f6 !important;
+  color: white !important;
+}
+
+/* Snackbar actie knop styling */
+::ng-deep .bauhaus-snackbar .mat-mdc-snack-bar-action {
+  color: inherit !important;
+  font-weight: bold !important;
+  border: 2px solid currentColor !important;
+  border-radius: 0 !important;
+  padding: 4px 8px !important;
+  margin-left: 8px !important;
+  background-color: transparent !important;
+  min-width: 32px !important;
+}
+
+::ng-deep .bauhaus-snackbar .mat-mdc-snack-bar-action:hover {
+  background-color: rgba(0,0,0,0.1) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.3) !important;
+}
+
+/* Snackbar animatie verbetering */
+::ng-deep .bauhaus-snackbar {
+  animation: snackbar-slide-in 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+@keyframes snackbar-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Snackbar container styling */
+::ng-deep .bauhaus-snackbar .mat-mdc-snack-bar-label {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+/* Snackbar voor verschillende schermgroottes */
+@media (max-width: 768px) {
+  ::ng-deep .bauhaus-snackbar {
+    min-width: 280px !important;
+    max-width: 90vw !important;
+  }
+}

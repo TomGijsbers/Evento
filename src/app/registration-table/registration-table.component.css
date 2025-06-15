@@ -1,0 +1,47 @@
+@media (max-width: 767px) {
+  /*
+  The following commented-out CSS is not strictly necessary with the current Tailwind classes,
+  but is kept for reference if further customization of the mobile view is needed
+  beyond what Tailwind's `hidden md:table-header-group` and `flex flex-col md:table-row` provide.
+  */
+  /* thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  } */
+  
+  /* tr {
+    display: block;
+    margin-bottom: .625em;
+    border-bottom: 2px solid #ddd;
+  } */
+  
+  td {
+    /* display: block; */ /* Handled by Tailwind's flex on <tr> for small screens */
+    /* text-align: right; */ /* Default is left, adjust if needed */
+    font-size: .8em;
+    /* border-bottom: 1px solid #eee; */ /* Border is on <tr> */
+  }
+  
+  td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 0.5em; /* Add some space between label and value */
+  }
+  
+  /* td:last-child {
+    border-bottom: 0;
+  } */
+
+  /* Ensure button in the last cell takes full width if needed or aligns properly */
+  /* td:last-child button {
+    width: 100%; /* Handled by Tailwind's w-full on button for small screens */
+  } 
+

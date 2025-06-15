@@ -1,0 +1,226 @@
+.bauhaus-nav {
+  background-color: white;
+  border-bottom: 5px solid black;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 100; /* Ensure the nav bar itself is on a higher stacking context */
+}
+
+/* Geometric decorative elements */
+.nav-geometric-shape-1 {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: #ffcc00;
+  top: -30px;
+  left: 10%;
+  transform: rotate(45deg);
+}
+
+.nav-geometric-shape-2 {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #ff0000;
+  bottom: -20px;
+  right: 20%;
+  border-radius: 50%;
+}
+
+.nav-geometric-shape-3 {
+  position: absolute;
+  width: 80px;
+  height: 25px;
+  background-color: #0000ff;
+  top: 10px;
+  right: 10%;
+}
+
+nav {
+  position: relative;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+nav li {
+  display: flex;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-align: center;
+  padding: 20px 16px;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  transition: all 0.2s ease;
+  background-color: white;
+  z-index: 1;
+  border-bottom: 3px solid transparent;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: #ffcc00;
+  z-index: -1;
+  transition: height 0.2s ease;
+}
+
+nav a:hover::after {
+  height: 100%;
+}
+
+nav a.active {
+  border-bottom: 3px solid #ff0000;
+  font-weight: 900;
+}
+
+nav a.active:hover {
+  color: black;
+}
+
+nav a:hover {
+  color: black;
+}
+
+nav i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Hamburger button styling */
+.hamburger-button {
+  display: none; /* Hidden by default, shown in media query */
+  background: none;
+  border: none;
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 15px;
+  /* z-index will be set in the media query to ensure it's above the mobile menu if needed, or relative to nav */
+}
+
+/* Button styling */
+.button__login, .button__signup, .button__logout {
+  padding: 10px 16px;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.button__login {
+  background-color: #0000ff;
+  color: white;
+  border: 2px solid black;
+}
+
+.button__signup {
+  background-color: #ffcc00;
+  color: black;
+  box-shadow: 4px 4px 0 black;
+  border: 2px solid black;
+}
+
+.button__logout {
+  background-color: black;
+  color: white;
+}
+
+.button__login:hover, .button__signup:hover, .button__logout:hover {
+  transform: translateY(-2px);
+}
+
+/* Mobile menu */
+@media (max-width: 815px) {
+  .hamburger-button {
+    display: block; /* Show hamburger on mobile */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1002; /* Above the mobile menu list */
+  }
+
+  nav ul {
+    display: none; /* Hide menu by default on mobile */
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Adjust based on nav height */
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px 0; /* Add some padding */
+    z-index: 1001; /* Below hamburger, but above other page content due to .bauhaus-nav z-index */
+  }
+
+  nav ul.mobile-menu-open {
+    display: flex; /* Show menu when open */
+  }
+  
+  nav li {
+    width: 100%;
+    margin-bottom: 4px;
+    display: flex; /* Ensure li takes full width for click */
+    justify-content: flex-start;
+  }
+  
+  nav a {
+    padding: 12px 20px; /* Adjust padding for better touch targets */
+    width: 100%;
+    justify-content: flex-start;
+    border-bottom: 1px solid #eee; /* Optional: separator lines */
+  }
+
+  nav a:hover::after {
+    height: 0; /* Disable hover effect on mobile if desired, or adjust */
+  }
+
+  nav a.active {
+    border-bottom-color: #ff0000; /* Keep active state distinct */
+  }
+  
+  li.ml-auto {
+    margin-left: 0;
+    margin-top: 0; /* Reset margin top */
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Make auth buttons full width */
+    padding: 0 10px; /* Add padding to align with other items */
+  }
+  
+  .button__login, .button__signup, .button__logout {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 8px;
+    padding: 12px; /* Consistent padding */
+  }
+  
+  .nav-geometric-shape-1,
+  .nav-geometric-shape-2,
+  .nav-geometric-shape-3 {
+    display: none;
+  }
+}

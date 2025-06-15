@@ -1,0 +1,193 @@
+<!-- Admin Dashboard Container met Bauhaus styling -->
+<div class="bg-white p-6 max-w-5xl mx-auto">
+  <!-- Hoofdtitel van het admin dashboard -->
+  <h2 class="text-3xl font-bold mb-8 uppercase tracking-wider border-l-8 border-red-600 pl-4">Admin Dashboard</h2>
+
+  <!-- KPI (Key Performance Indicators) Cards Sectie -->
+  <!-- Toont belangrijke statistieken in Bauhaus-stijl kaarten -->
+  <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    <!-- KPI Kaart: Totaal aantal events -->
+    <app-kpi-card 
+      [value]="totalEvents" 
+      label="Total Events" 
+      colorClass="blue-600" 
+      icon="E">
+    </app-kpi-card>
+
+    <!-- KPI Kaart: Totaal aantal locaties -->
+    <app-kpi-card 
+      [value]="totalLocations" 
+      label="Total Locations" 
+      colorClass="yellow-400" 
+      icon="L">
+    </app-kpi-card>
+
+    <!-- KPI Kaart: Totaal aantal inschrijvingen -->
+    <app-kpi-card 
+      [value]="totalRegistrations" 
+      label="Total Registrations" 
+      colorClass="red-600" 
+      icon="R">
+    </app-kpi-card>
+  </div>
+
+  <!-- Sectie titel voor event inschrijvingen -->
+  <h3 class="text-2xl font-bold mb-6 uppercase tracking-wider border-l-8 border-green-500 pl-4">Event Management</h3>
+
+  <!-- Create Event Button Section -->
+  <div *ngIf="!loading" class="mb-8">
+    <button (click)="openCreateModal()"
+      class="py-3 px-8 bg-green-500 hover:bg-green-600 text-black uppercase font-bold 
+      border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] 
+      hover:translate-y-[-2px] transition-transform">
+      <i class="pi pi-plus mr-2"></i>
+      Nieuw Event Aanmaken
+    </button>
+  </div>
+
+  <!-- Event Management Section -->
+  <div *ngIf="!loading && events.length" class="mb-8">
+    <h4 class="text-xl font-bold mb-4 uppercase tracking-wider border-l-8 border-purple-500 pl-4">Event Management</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      <app-event-admin-card 
+        *ngFor="let event of events; let i = index" 
+        [event]="event" 
+        [index]="i"
+        (remove)="deleteEvent(event)"
+        (open)="loadRegistrations(event)">
+      </app-event-admin-card>
+    </div>
+  </div>
+
+  <!-- Hardcoded Bauhaus-stijl loader die toont wanneer data wordt geladen -->
+  <div *ngIf="loading" class="flex justify-center items-center mt-20 flex-col">
+    <!-- BAUHAUS LOADER -->
+    <div class="bauhaus-loader py-16">
+      <div class="bauhaus-loader-container">
+        <div class="bauhaus-square bg-red-600"></div>
+        <div class="bauhaus-square bg-blue-600"></div>
+        <div class="bauhaus-square bg-yellow-400"></div>
+        <div class="bauhaus-circle border-8 border-black"></div>
+        <div class="bauhaus-triangle"></div>
+      </div>
+      <p class="mt-6 font-bold uppercase tracking-wider text-center">
+        Laden...
+      </p>
+    </div>
+  </div>
+
+  <!-- Accordion (inklapbare panelen) voor events en hun inschrijvingen -->
+  <!-- Toont alleen wanneer er events zijn en niet aan het laden -->
+  <mat-accordion *ngIf="events.length && !loading" class="bauhaus-accordion">
+    <!-- Loop door alle events heen -->
+    <mat-expansion-panel *ngFor="let ev of events; let i = index" 
+                        (opened)="loadRegistrations(ev)" 
+                        [ngClass]="{'border-blue-600': i % 3 === 0, 'border-red-600': i % 3 === 1, 'border-yellow-400': i % 3 === 2}"
+                        class="mb-4 border-l-8 shadow-lg">
+      <!-- Header van elk uitklapbaar paneel -->
+      <mat-expansion-panel-header class="py-4">
+        <!-- Event naam als titel -->
+        <mat-panel-title class="font-bold text-lg uppercase">
+          {{ ev.name }}
+        </mat-panel-title>
+        <!-- Aantal inschrijvingen als badge -->
+        <mat-panel-description class="flex items-center">
+          <span class="bg-black text-white px-3 py-1 rounded-none font-mono">{{ ev.registrations?.length || 0 }}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Loading indicator voor wanneer inschrijvingen nog laden -->
+      <div *ngIf="!ev.registrations" class="flex justify-center items-center py-8">
+        <!-- BAUHAUS LOADER -->
+        <div class="bauhaus-loader py-8">
+          <div class="bauhaus-loader-container">
+            <div class="bauhaus-square bg-red-600"></div>
+            <div class="bauhaus-square bg-blue-600"></div>
+            <div class="bauhaus-square bg-yellow-400"></div>
+            <div class="bauhaus-circle border-8 border-black"></div>
+            <div class="bauhaus-triangle"></div>
+          </div>
+          <p class="mt-4 font-bold uppercase tracking-wider text-center">
+            Inschrijvingen laden...
+          </p>
+        </div>
+      </div>
+
+      <!-- Tabel met inschrijvingen wanneer geladen -->
+      <div *ngIf="ev.registrations" class="overflow-x-auto">
+        <app-registration-table 
+          [registrations]="ev.registrations" 
+          (delete)="deleteRegistration(ev, $event)">
+        </app-registration-table>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- Bericht wanneer geen events gevonden -->
+  <div *ngIf="!events.length && !loading" class="border-l-8 border-yellow-400 p-4 mt-8 bg-gray-50">
+    <p class="font-bold uppercase">Geen events gevonden</p>
+  </div>
+  
+  <!-- Create Event Modal Component -->
+  <app-create-event-modal
+    [showCreateModal]="showCreateModal"
+    [locations]="locations"
+    (add)="onAddEvent($event)"
+    (close)="closeCreateModal()">
+  </app-create-event-modal>
+
+  <!-- Sectie titel voor locaties beheer -->
+  <h3 class="text-2xl font-bold mb-6 mt-12 uppercase tracking-wider border-l-8 border-purple-500 pl-4">Location Management</h3>
+
+  <!-- Create Location Button -->
+  <div *ngIf="!loading" class="mb-8">
+    <button (click)="openCreateLocationModal()"
+      class="py-3 px-8 bg-purple-500 hover:bg-purple-600 text-white uppercase font-bold 
+      border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] 
+      hover:translate-y-[-2px] transition-transform">
+      <i class="pi pi-plus mr-2"></i>
+      Nieuwe Locatie Aanmaken
+    </button>
+  </div>
+
+  <!-- Locations Grid -->
+  <div *ngIf="!loading && locations.length" class="mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      <app-location-card 
+        *ngFor="let location of locations; let i = index"
+        [location]="location"
+        [index]="i"
+        (remove)="deleteLocation(location)">
+      </app-location-card>
+    </div>
+  </div>
+
+  <!-- Bericht wanneer geen locaties gevonden -->
+  <div *ngIf="!locations.length && !loading" class="border-l-8 border-yellow-400 p-4 mt-8 bg-gray-50">
+    <p class="font-bold uppercase">Geen locaties gevonden</p>
+  </div>
+
+  <!-- Bauhaus-stijl loader voor locaties -->
+  <div *ngIf="loading" class="flex justify-center items-center mt-20 flex-col">
+    <!-- BAUHAUS LOADER -->
+    <div class="bauhaus-loader py-16">
+      <div class="bauhaus-loader-container">
+        <div class="bauhaus-square bg-red-600"></div>
+        <div class="bauhaus-square bg-blue-600"></div>
+        <div class="bauhaus-square bg-yellow-400"></div>
+        <div class="bauhaus-circle border-8 border-black"></div>
+        <div class="bauhaus-triangle"></div>
+      </div>
+      <p class="mt-6 font-bold uppercase tracking-wider text-center">
+        Laden...
+      </p>
+    </div>
+  </div>
+
+  <!-- Create Location Modal Component -->
+  <app-create-location-modal
+    [visible]="showCreateLocationModal"
+    (add)="onAddLocation($event)"
+    (close)="closeCreateLocationModal()">
+  </app-create-location-modal>
+</div>

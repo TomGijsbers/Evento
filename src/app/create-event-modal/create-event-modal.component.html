@@ -1,0 +1,76 @@
+<div *ngIf="showCreateModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 modal-backdrop">
+    <div class="bg-white border-4 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] p-8 max-w-2xl w-full max-h-[90vh] overflow-auto relative modal-content">
+      <!-- Bauhaus decoratieve elementen -->
+      <div class="absolute top-0 right-0 w-24 h-24 bg-blue-600 -m-2 z-[-1]"></div>
+      <div class="absolute bottom-0 left-0 w-20 h-20 bg-yellow-500 -m-2 z-[-1]"></div>
+      
+      <h2 class="text-3xl font-bold uppercase tracking-tighter mb-6">Nieuw Event</h2>
+      <div class="h-2 w-32 bg-green-500 mb-8"></div>
+      
+      <form [formGroup]="eventForm" (ngSubmit)="onAddEvent()" class="space-y-6">
+        <div class="form-group">
+          <label for="name" class="block text-sm font-bold uppercase mb-2">Naam Event</label>
+          <input type="text" id="name" formControlName="name" 
+                 class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+          <div *ngIf="eventForm.get('name')?.invalid && (eventForm.get('name')?.dirty || eventForm.get('name')?.touched)" 
+               class="text-red-600 text-xs mt-1 font-bold">
+            <span *ngIf="eventForm.get('name')?.errors?.['required']">Naam is verplicht</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="block text-sm font-bold uppercase mb-2">Beschrijving</label>
+          <textarea id="description" formControlName="description" rows="3"
+            class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+          <div *ngIf="eventForm.get('description')?.invalid && (eventForm.get('description')?.dirty || eventForm.get('description')?.touched)" 
+               class="text-red-600 text-xs mt-1 font-bold">
+            <span *ngIf="eventForm.get('description')?.errors?.['required']">Beschrijving is verplicht</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eventDate" class="block text-sm font-bold uppercase mb-2">Datum & Tijd</label>
+          <input type="datetime-local" id="eventDate" formControlName="eventDate"
+            class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+          <div *ngIf="eventForm.get('eventDate')?.invalid && (eventForm.get('eventDate')?.dirty || eventForm.get('eventDate')?.touched)" 
+               class="text-red-600 text-xs mt-1 font-bold">
+            <span *ngIf="eventForm.get('eventDate')?.errors?.['required']">Datum & tijd is verplicht</span>
+            <span *ngIf="eventForm.get('eventDate')?.errors?.['pastDate']">Datum kan niet in het verleden liggen</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="locationId" class="block text-sm font-bold uppercase mb-2">Locatie</label>
+          <select id="locationId" formControlName="locationId"
+            class="w-full border-2 border-black p-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 bg-white">
+            <option [ngValue]="null" disabled selected>Kies een locatie</option>
+            <option *ngFor="let location of locations" [value]="location.id">{{ location.name }}</option>
+          </select>
+          <div *ngIf="eventForm.get('locationId')?.invalid && (eventForm.get('locationId')?.dirty || eventForm.get('locationId')?.touched)" 
+               class="text-red-600 text-xs mt-1 font-bold">
+            <span *ngIf="eventForm.get('locationId')?.errors?.['required']">Locatie is verplicht</span>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <button type="submit" [disabled]="!eventForm.valid"
+            class="flex-1 py-3 bg-yellow-500 hover:bg-yellow-600 text-black uppercase font-bold 
+            border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] 
+            disabled:opacity-50 disabled:cursor-not-allowed hover:translate-y-[-2px] transition-transform">
+            Event Aanmaken
+          </button>
+          <button type="button" (click)="closeCreateModal()"
+            class="py-3 px-6 bg-black text-white uppercase font-bold hover:bg-opacity-80">
+            Annuleren
+          </button>
+        </div>
+      </form>
+      
+      <!-- X knop rechtsboven -->
+      <button (click)="closeCreateModal()" 
+              class="absolute top-4 right-4 w-10 h-10 bg-red-600 hover:bg-red-700 text-white font-bold 
+              border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center">
+        ✕
+      </button>
+    </div>
+  </div>

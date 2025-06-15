@@ -1,0 +1,64 @@
+<div class="bauhaus-nav">
+  <!-- <div class="nav-geometric-shape-1"></div>
+  <div class="nav-geometric-shape-2"></div>
+  <div class="nav-geometric-shape-3"></div> -->
+  
+  <nav class="container mx-auto relative z-10">
+    <button class="hamburger-button" (click)="toggleMobileMenu()">
+      <i class="pi pi-bars"></i>
+    </button>
+    <ul [class.mobile-menu-open]="isMobileMenuOpen()">
+      <!-- altijd zichtbaar -->
+      <li><a routerLink="/" routerLinkActive="active" (click)="closeMobileMenu()">
+        <i class="pi pi-home"></i> Home
+      </a></li>
+
+      <!-- alleen ingelogd -->
+      @if (isAuthenticated()) {
+        <!-- voor alle rollen -->
+        <li><a routerLink="/events" routerLinkActive="active" (click)="closeMobileMenu()">
+          <i class="pi pi-calendar"></i> Events
+        </a></li>
+        <li><a routerLink="/profile" routerLinkActive="active" (click)="closeMobileMenu()">
+          <i class="pi pi-user"></i> Profile
+        </a></li>
+
+        <!-- TeamLeader extra -->
+        @if (isTeamLeader()) {
+          <li><a routerLink="/locations" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-map-marker"></i> Locations
+          </a></li>
+          @if (!isAdmin()) {
+            <li><a routerLink="/teamleader/create-event" routerLinkActive="active" (click)="closeMobileMenu()">
+              <i class="pi pi-plus"></i> Event aanmaken
+            </a></li>
+          }
+        }
+
+        <!-- Admin extra -->
+        @if (isAdmin()) {
+          <li><a routerLink="/admin" routerLinkActive="active" (click)="closeMobileMenu()">
+            <i class="pi pi-cog"></i> Admin
+          </a></li>
+        }
+      }
+
+      <!-- rechts uitgelijnde login/logout -->
+      <li class="ml-auto flex">
+        @if (!isAuthenticated()) {
+          <button class="button__login" (click)="handleLogin()">
+            <i class="pi pi-sign-in"></i> Login
+          </button>
+          <button class="button__signup" (click)="handleSignUp()">
+            <i class="pi pi-user-plus"></i> Sign up
+          </button>
+        }
+        @if (isAuthenticated()) {
+          <button class="button__logout" (click)="handleLogout()">
+            <i class="pi pi-sign-out"></i> Logout
+          </button>
+        }
+      </li>
+    </ul>
+  </nav>
+</div>

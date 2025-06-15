@@ -1,0 +1,15 @@
+.modal-content {
+  overflow-x: hidden;
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+}
+
+.modal-backdrop {
+  overflow-x: hidden;
+}
+
+/* Ensure form elements don't cause horizontal overflow */
+input, textarea, select {
+  box-sizing: border-box;
+  max-width: 100%;
+}

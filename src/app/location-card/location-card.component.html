@@ -1,0 +1,17 @@
+<div class="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-4 relative"
+     [ngClass]="{
+       'border-l-8 border-l-purple-500': index % 3 === 0,
+       'border-l-8 border-l-orange-500': index % 3 === 1,
+       'border-l-8 border-l-pink-500'  : index % 3 === 2
+     }">
+  <h5 class="font-bold text-lg uppercase mb-2">{{ location.name }}</h5>
+  <p class="text-sm text-gray-600 mb-2">{{ location.address }}</p>
+  <p class="text-xs text-gray-500 mb-4">{{ location.latitude }}, {{ location.longitude }}</p>
+
+  <button (click)="remove.emit(location)"
+          class="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-bold
+                 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]
+                 hover:translate-y-[-2px] transition-transform uppercase text-sm">
+    Verwijder Locatie
+  </button>
+</div>

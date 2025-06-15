@@ -1,0 +1,180 @@
+/* Override default Material expansion panel header styling */
+::ng-deep .bauhaus-accordion .mat-expansion-panel-header {
+  font-family: 'Arial', sans-serif;
+  height: 64px;  /* Taller header for better visual impact */
+}
+
+/* Remove default border radius for more geometric appearance */
+::ng-deep .bauhaus-accordion .mat-expansion-panel:not([class*=mat-elevation-z]) {
+  border-radius: 0;  /* Square corners - Bauhaus geometric principle */
+}
+
+/* Remove default padding to allow for custom table layout */
+::ng-deep .mat-expansion-panel-body {
+  padding: 0;
+}
+
+/* Delete button styles */
+.delete-btn {
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+}
+
+.delete-btn .pi {
+  font-size: 1rem;
+}
+
+/* Ensure button looks "clickable" with cursor */
+.delete-btn {
+  cursor: pointer;
+}
+
+/* ---------- BAUHAUS LOADER STYLES ---------- */
+.bauhaus-loader{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bauhaus-loader-container{
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+/* vierkantjes */
+.bauhaus-square{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  animation: bauhaus-move 3s infinite ease-in-out;
+}
+.bauhaus-square:nth-child(1){top: 0; left: 0; animation-delay: 0s;}
+.bauhaus-square:nth-child(2){top: 0; right: 0; animation-delay: .5s;}
+.bauhaus-square:nth-child(3){bottom: 0; left: 0; animation-delay: 1s;}
+
+/* cirkel */
+.bauhaus-circle{
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  animation: bauhaus-rotate 4s infinite linear;
+}
+
+/* driehoek */
+.bauhaus-triangle{
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  animation: bauhaus-pulse 2s infinite ease-in-out;
+}
+
+/* Animations */
+@keyframes bauhaus-move{
+  0%{transform: translate(0,0);}
+  25%{transform: translate(20px,20px);}
+  50%{transform: translate(0,40px);}
+  75%{transform: translate(-20px,20px);}
+  100%{transform: translate(0,0);}
+}
+@keyframes bauhaus-rotate{
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+@keyframes bauhaus-pulse{
+  0%{opacity: .5; transform: translate(-50%,-50%) scale(.8);}
+  50%{opacity: 1; transform: translate(-50%,-50%) scale(1.1);}
+  100%{opacity: .5; transform: translate(-50%,-50%) scale(.8);}
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bauhaus-square, .bauhaus-circle {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .bauhaus-triangle {
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-bottom: 2rem solid black;
+  }
+  
+  .bauhaus-loader-container {
+    gap: 0.75rem;
+  }
+}
+
+/* KPI Card Styles */
+.kpi-card {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.kpi-icon {
+  border-radius: 0; /* Square for Bauhaus style */
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-top: 20px solid rgba(255, 255, 255, 0.2);
+}
+
+.kpi-content p {
+  font-family: 'Arial', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Animations */
+@keyframes bauhaus-move {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(20px, 20px); }
+  50% { transform: translate(0, 40px); }
+  75% { transform: translate(-20px, 20px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes bauhaus-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes bauhaus-pulse {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+@keyframes bauhaus-bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}

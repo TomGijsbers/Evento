@@ -1,0 +1,160 @@
+/* Bauhaus inspired styles with sharp geometry and primary colors */
+
+mat-card {
+  border-radius: 0 !important;
+  border-bottom-color: black !important;
+  border-left-color: red !important;
+  padding: 2rem !important;
+}
+
+button[mat-raised-button] {
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  border-radius: 0 !important;
+  background-color: black !important;
+}
+
+/* Event style input fields */
+.event-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.event-input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid black;
+  padding: 12px 16px;
+  font-size: 16px;
+  background-color: white;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.event-input:focus {
+  border-width: 2px;
+}
+
+.event-input:disabled {
+  background-color: #f5f5f5;
+}
+
+/* Keep Bauhaus style for the rest of the elements */
+::ng-deep .mat-snack-bar-container {
+  border-radius: 0 !important;
+  border-left: 8px solid #ffcc00 !important;
+  border-bottom: 4px solid black !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Add a green underline similar to the event form */
+form::before {
+  content: '';
+  display: block;
+  width: 185px;
+  height: 4px;
+  background-color: #22c55e;
+  margin-bottom: 2rem;
+}
+
+/* Add a heading style for the form title */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+/* Bauhaus style form fields */
+.bauhaus-field {
+  border-left: 4px solid #ffcc00 !important;
+}
+
+.bauhaus-field .mat-form-field-outline {
+  border-radius: 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  border-radius: 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start,
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0 !important;
+}
+
+::ng-deep .mat-form-field-label {
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* ---------- BAUHAUS LOADER STYLES ---------- */
+.bauhaus-loader{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bauhaus-loader-container{
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+/* vierkantjes */
+.bauhaus-square{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  animation: bauhaus-move 3s infinite ease-in-out;
+}
+.bauhaus-square:nth-child(1){top: 0; left: 0; animation-delay: 0s;}
+.bauhaus-square:nth-child(2){top: 0; right: 0; animation-delay: .5s;}
+.bauhaus-square:nth-child(3){bottom: 0; left: 0; animation-delay: 1s;}
+
+/* cirkel */
+.bauhaus-circle{
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  animation: bauhaus-rotate 4s infinite linear;
+}
+
+/* driehoek */
+.bauhaus-triangle{
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  animation: bauhaus-pulse 2s infinite ease-in-out;
+}
+
+/* Animations */
+@keyframes bauhaus-move{
+  0%{transform: translate(0,0);}
+  25%{transform: translate(20px,20px);}
+  50%{transform: translate(0,40px);}
+  75%{transform: translate(-20px,20px);}
+  100%{transform: translate(0,0);}
+}
+@keyframes bauhaus-rotate{
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+@keyframes bauhaus-pulse{
+  0%{opacity: .5; transform: translate(-50%,-50%) scale(.8);}
+  50%{opacity: 1; transform: translate(-50%,-50%) scale(1.1);}
+  100%{opacity: .5; transform: translate(-50%,-50%) scale(.8);}
+}

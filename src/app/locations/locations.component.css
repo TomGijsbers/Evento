@@ -1,0 +1,154 @@
+/* Override Material styles for Bauhaus aesthetic */
+:host ::ng-deep .mat-mdc-form-field-outline {
+  border-width: 2px !important;
+  border-color: black !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix {
+  font-weight: 500;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: white;
+}
+
+:host ::ng-deep .mdc-floating-label--float-above {
+  font-weight: bold;
+}
+
+:host ::ng-deep .mat-mdc-raised-button {
+  border-radius: 0 !important;
+}
+
+/* Dialog Customization */
+:host ::ng-deep .bauhaus-dialog-container .mat-mdc-dialog-surface {
+  border: 4px solid black !important;
+  border-radius: 0 !important;
+  box-shadow: 12px 12px 0px 0px rgba(0,0,0,0.9) !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  background: white !important;
+}
+
+:host ::ng-deep .bauhaus-dialog-container .mat-mdc-dialog-container {
+  padding: 0 !important;
+}
+
+:host ::ng-deep .bauhaus-dialog-container .mat-mdc-dialog-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: none !important;
+}
+
+/* Ensure the dialog backdrop has a subtle Bauhaus feel */
+:host ::ng-deep .cdk-overlay-backdrop {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.locations-container {
+  padding: 20px;
+}
+
+.loading, .error {
+  padding: 20px;
+  text-align: center;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Animation for cards */
+.location-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 12px 12px 0px 0px rgba(0,0,0,1);
+}
+
+.location-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+/* ---------- BAUHAUS LOADER STYLES ---------- */
+.bauhaus-loader{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.bauhaus-loader-container{
+  position:relative;
+  width:200px;
+  height:200px;
+}
+
+/* vierkantjes */
+.bauhaus-square{
+  position:absolute;
+  width:50px;
+  height:50px;
+  animation:bauhaus-move 3s infinite ease-in-out;
+}
+.bauhaus-square:nth-child(1){top:0;left:0;animation-delay:0s;}
+.bauhaus-square:nth-child(2){top:0;right:0;animation-delay:.5s;}
+.bauhaus-square:nth-child(3){bottom:0;left:0;animation-delay:1s;}
+
+/* cirkel */
+.bauhaus-circle{
+  position:absolute;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  bottom:0;
+  right:0;
+  background:#fff;
+  animation:bauhaus-rotate 4s infinite linear;
+}
+
+/* driehoek */
+.bauhaus-triangle{
+  position:absolute;
+  width:0;
+  height:0;
+  border-left:30px solid transparent;
+  border-right:30px solid transparent;
+  border-bottom:50px solid black;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  animation:bauhaus-pulse 2s infinite ease-in-out;
+}
+
+/* Animations */
+@keyframes bauhaus-move{
+  0%{transform:translate(0,0);}
+  25%{transform:translate(20px,20px);}
+  50%{transform:translate(0,40px);}
+  75%{transform:translate(-20px,20px);}
+  100%{transform:translate(0,0);}
+}
+@keyframes bauhaus-rotate{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+@keyframes bauhaus-pulse{
+  0%{opacity:.5;transform:translate(-50%,-50%) scale(.8);}
+  50%{opacity:1; transform:translate(-50%,-50%) scale(1.1);}
+  100%{opacity:.5;transform:translate(-50%,-50%) scale(.8);}
+}

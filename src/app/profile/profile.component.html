@@ -1,0 +1,82 @@
+<ng-container *ngIf="!loading(); else busy">
+  <div class="relative">
+    <!-- Bauhaus geometric shapes background -->
+    <div class="absolute -z-10 top-10 left-10 w-32 h-32 bg-red-600 rounded-none"></div>
+    <div class="absolute -z-10 top-20 left-60 w-24 h-24 bg-blue-600 rounded-full"></div>
+    <div class="absolute -z-10 top-40 left-28 w-20 h-20 transform rotate-45 bg-yellow-400"></div>
+    
+    <mat-card class="max-w-xl mx-auto mt-20 shadow-lg border-b-8 border-l-8 bg-white">
+      <!-- Avatar + naam in Bauhaus style -->
+      <div class="flex flex-col md:flex-row items-center gap-6 mb-8 relative">
+        <ng-container *ngIf="(auth.user$ | async) as u">
+          <!-- Circle behind avatar - Bauhaus style -->
+          <div class="w-28 h-28 rounded-none bg-black p-1">
+            <img [src]="u.picture"
+                [alt]="u.name"
+                class="w-full h-full object-cover" />
+          </div>
+
+          <!-- Name with Bauhaus typography -->
+          <h2 class="text-3xl font-black uppercase tracking-wider">
+            {{ profile()?.firstName
+                ? profile()?.firstName + ' ' + profile()?.lastName
+                : u.name }}
+          </h2>
+          
+          <!-- Bauhaus decorative element -->
+          <div class="absolute -bottom-4 left-0 w-16 h-2 bg-yellow-400"></div>
+        </ng-container>
+      </div>
+
+      <!-- Formulier in Bauhaus style -->
+      <form [formGroup]="form" (ngSubmit)="save()" class="space-y-8">
+        <!-- Field labels in Bauhaus style -->
+        <div class="mb-1 font-bold text-base uppercase">Voornaam</div>
+        <div class="event-input-container">
+          <input formControlName="firstName" 
+                 placeholder="Vul je voornaam in" 
+                 class="event-input w-full" />
+          <div *ngIf="form.controls.firstName.invalid && form.controls.firstName.touched" 
+               class="text-red-600 mt-1 text-sm font-bold">
+            Voornaam is verplicht
+          </div>
+        </div>
+
+        <div class="mb-1 font-bold text-base uppercase mt-4">Achternaam</div>
+        <div class="event-input-container">
+          <input formControlName="lastName" 
+                 placeholder="Vul je achternaam in" 
+                 class="event-input w-full" />
+          <div *ngIf="form.controls.lastName.invalid && form.controls.lastName.touched" 
+               class="text-red-600 mt-1 text-sm font-bold">
+            Achternaam is verplicht
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" 
+                class="w-full h-14 mt-8" 
+                [disabled]="form.invalid || savePending()">
+          {{ savePending() ? 'OPSLAAN...' : 'OPSLAAN' }}
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</ng-container>
+
+<ng-template #busy>
+  <div class="flex justify-center items-center mt-20 flex-col">
+    <!-- BAUHAUS LOADER -->
+    <div class="bauhaus-loader py-16">
+      <div class="bauhaus-loader-container">
+        <div class="bauhaus-square bg-red-600"></div>
+        <div class="bauhaus-square bg-blue-600"></div>
+        <div class="bauhaus-square bg-yellow-400"></div>
+        <div class="bauhaus-circle border-8 border-black"></div>
+        <div class="bauhaus-triangle"></div>
+      </div>
+      <p class="mt-6 font-bold uppercase tracking-wider text-center">
+        Profiel laden…
+      </p>
+    </div>
+  </div>
+</ng-template>
