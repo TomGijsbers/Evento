@@ -21,67 +21,77 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class MenuComponent {
 
-  isAuthenticated = signal(false);
-  isAdmin = signal(false);
-  isTeamLeader = signal(false);
-  isMobileMenuOpen = signal(false);
+  // Signalen voor het bijhouden van de authenticatie- en gebruikersstatus
+  isAuthenticated = signal(false);  // Houdt bij of de gebruiker is ingelogd
+  isAdmin = signal(false);          // Houdt bij of de gebruiker admin rechten heeft
+  isTeamLeader = signal(false);     // Houdt bij of de gebruiker teamleider rechten heeft
+  isMobileMenuOpen = signal(false); // Houdt bij of het mobiele menu geopend is
 
   constructor(private auth: AuthService, public roleService: RoleService) {
+    // Luistert naar veranderingen in de authenticatiestatus
     this.auth.isAuthenticated$.subscribe((authenticated) => {
       this.isAuthenticated.set(authenticated);
 
       if (authenticated) {
+        // Controleert of de gebruiker teamleider rechten heeft
         this.roleService.hasPermission('create:event')
           .subscribe(flag => this.isTeamLeader.set(flag));
 
+        // Controleert of de gebruiker admin rechten heeft
         this.roleService.hasPermission('read:admin')
           .subscribe(flag => this.isAdmin.set(flag));
     
-  } else {
-  this.isAdmin.set(false);
-  this.isTeamLeader.set(false);
-}
+      } else {
+        // Reset de rol-statussen wanneer de gebruiker uitgelogd is
+        this.isAdmin.set(false);
+        this.isTeamLeader.set(false);
+      }
     });
   }
 
-  toggleMobileMenu(): void {
+  // Opent of sluit het mobiele navigatiemenu
+  public toggleMobileMenu(): void {
     this.isMobileMenuOpen.set(!this.isMobileMenuOpen());
   }
 
-  closeMobileMenu(): void {
+  // Sluit het mobiele navigatiemenu
+  public closeMobileMenu(): void {
     if (this.isMobileMenuOpen()) {
       this.isMobileMenuOpen.set(false);
     }
   }
 
-handleLogin(): void {
-  this.auth.loginWithRedirect({
-    appState: {
-      target: '/',
-    },
-    authorizationParams: {
-      prompt: 'login',
-    },
-  });
-}
+  // Start het inlogproces via Auth0
+  public handleLogin(): void {
+    this.auth.loginWithRedirect({
+      appState: {
+        target: '/',
+      },
+      authorizationParams: {
+        prompt: 'login',
+      },
+    });
+  }
 
-handleSignUp(): void {
-  this.auth.loginWithRedirect({
-    appState: {
-      target: "/",
-    },
-    authorizationParams: {
-      prompt: "login",
-      screen_hint: "signup",
-    },
-  });
-}
+  // Start het registratieproces via Auth0
+  public handleSignUp(): void {
+    this.auth.loginWithRedirect({
+      appState: {
+        target: "/",
+      },
+      authorizationParams: {
+        prompt: "login",
+        screen_hint: "signup",
+      },
+    });
+  }
 
-handleLogout(): void {
-  this.auth.logout({
-    logoutParams: {
-      returnTo: environment.home_url,
-    },
-  });
-}
+  // Logt de gebruiker uit en redirect naar de homepagina
+  public handleLogout(): void {
+    this.auth.logout({
+      logoutParams: {
+        returnTo: environment.home_url,
+      },
+    });
+  }
 }

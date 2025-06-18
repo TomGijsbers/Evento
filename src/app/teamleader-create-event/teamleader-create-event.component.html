@@ -1,35 +1,36 @@
+<!--  Hoofdcontainer met Bauhaus-geïnspireerd ontwerp voor teamleider event creatie -->
 <div class="bauhaus-container">
-  <!-- Geometric Background Elements -->
+  <!-- Geometrische achtergrond elementen voor visuele diepte en Bauhaus esthetiek -->
   <div class="geometric-bg">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-    <div class="shape shape-4"></div>
-    <div class="shape shape-5"></div>
+    <div class="shape shape-1"></div> <!-- Oranje cirkel rechtsboven -->
+    <div class="shape shape-2"></div> <!-- Oranje vierkant linksonder -->
+    <div class="shape shape-3"></div> <!-- Blauwe driehoek midden rechts -->
+    <div class="shape shape-4"></div> <!-- Paarse rechthoek links -->
+    <div class="shape shape-5"></div> <!-- Groene rechthoek rechtsonder -->
   </div>
 
-  <!-- Header Section - Full Width -->
+  <!--  Header sectie met hoofdtitel en decoratieve elementen -->
   <header class="page-header">
     <h1 class="title">CREATE NEW EVENT</h1>
-    <div class="title-accent"></div>
+    <div class="title-accent"></div> <!-- Kleurrijke accent lijn -->
     <p class="subtitle">Design your next gathering with geometric precision</p>
   </header>
 
-  <!-- Main Content Area - No Container -->
+  <!--  Hoofdinhoud in twee kolommen - kunstwerk links, actie kaart rechts -->
   <main class="main-content">
-    <!-- Art Installation -->
+    <!-- Linkersectie met abstracte Bauhaus kunst compositie -->
     <section class="art-section">
       <div class="art-piece">
-        <div class="circle-art circle-1"></div>
-        <div class="circle-art circle-2"></div>
-        <div class="triangle-art"></div>
-        <div class="square-art"></div>
-        <div class="line-art line-1"></div>
-        <div class="line-art line-2"></div>
+        <div class="circle-art circle-1"></div> <!-- Grote oranje cirkel -->
+        <div class="circle-art circle-2"></div> <!-- Kleine gele cirkel -->
+        <div class="triangle-art"></div> <!-- Blauwe driehoek -->
+        <div class="square-art"></div> <!-- Groen vierkant -->
+        <div class="line-art line-1"></div> <!-- Diagonale lijn 1 -->
+        <div class="line-art line-2"></div> <!-- Diagonale lijn 2 -->
       </div>
     </section>
 
-    <!-- Action Section -->
+    <!--  Rechtersectie met actie kaart en create knop -->
     <section class="action-section">
       <div class="action-card">
         <h3>Ready to Create?</h3>
@@ -37,6 +38,7 @@
           Transform your ideas into reality. Click below to start designing 
           your next event with our intuitive creation tool.
         </p>
+        <!-- Nederlandse uitleg: Hoofdknop om het event aanmaak modal te openen -->
         <button class="create-button" (click)="openCreateModal()">
           <span class="button-icon">+</span>
           <span class="button-text">CREATE EVENT</span>
@@ -45,7 +47,8 @@
     </section>
   </main>
 
-  <!-- Modal -->
+  <!--  Modal component voor het aanmaken van nieuwe evenementen -->
+  <!-- Krijgt locaties, modal status door en luistert naar add/close events -->
   <app-create-event-modal
     [showCreateModal]="showCreateModal"
     [locations]="locations"

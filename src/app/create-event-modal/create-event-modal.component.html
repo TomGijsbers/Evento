@@ -1,10 +1,14 @@
+<!-- Event aanmaak modal - verschijnt wanneer showCreateModal true is -->
 <div *ngIf="showCreateModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 modal-backdrop">
+    <!-- Modal container met Bauhaus styling -->
     <div class="bg-white border-4 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] p-8 max-w-2xl w-full max-h-[90vh] overflow-auto relative modal-content">
-      <!-- Bauhaus decoratieve elementen -->
+      <!-- Bauhaus decoratieve elementen voor visuele interesse -->
       <div class="absolute top-0 right-0 w-24 h-24 bg-blue-600 -m-2 z-[-1]"></div>
       <div class="absolute bottom-0 left-0 w-20 h-20 bg-yellow-500 -m-2 z-[-1]"></div>
       
+      <!-- Hoofdtitel van de modal -->
       <h2 class="text-3xl font-bold uppercase tracking-tighter mb-6">Nieuw Event</h2>
+      <!-- Decoratieve groene lijn -->
       <div class="h-2 w-32 bg-green-500 mb-8"></div>
       
       <form [formGroup]="eventForm" (ngSubmit)="onAddEvent()" class="space-y-6">

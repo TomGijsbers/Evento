@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { LocationsService } from '../locations.service';
+import { LocationsService } from '../locations/locations.service';
 import { MapPickerComponent } from '../map-picker/map-picker.component';
 
 @Component({
@@ -38,5 +38,5 @@ export class LocationDialogComponent implements AfterViewInit {
     }
   }
 
-  // ...existing methods...
+
 }

@@ -1,17 +1,3 @@
-/* 
- * Admin Dashboard Component
- * 
- * Dit component toont een overzicht van alle events met hun inschrijvingen
- * in een admin dashboard interface met Bauhaus-geïnspireerd design.
- * 
- * Functionaliteiten:
- * - KPI overzicht (totaal events, locaties, inschrijvingen)
- * - Uitklapbare panelen per event
- * - Tabel met alle inschrijvingen per event
- * - Mogelijkheid om inschrijvingen te verwijderen
- * - Loading states met Bauhaus animaties
- */
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -19,8 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-// PrimeIcons toevoegen indien nodig - uitcommentariëren als nodig
-// import 'primeicons/primeicons.css';
 import { EventsService, EventWithRegistrationsCount, Location } from '/School/angular/WorkShopAngularAuth0/src/app/events/events.service';
 import { RegistrationService, EventRegistrationDTO } from './registration.service';
 import { LocationsService, CreateLocationDto } from '../locations/locations.service';
@@ -34,53 +18,27 @@ import { CreateEventModalComponent } from '../create-event-modal/create-event-mo
 import { CreateLocationModalComponent } from '../create-location-modal/create-location-modal.component';
 import { NotificationService } from '../shared/notification.service';
 
-/**
- * AdminEventBoardComponent - Admin dashboard voor het beheren van event inschrijvingen
- * 
- * Dit component toont alle events met hun inschrijvingen in een Bauhaus-geïnspireerde design.
- * Het stelt admins in staat om inschrijvingen per event te bekijken en indien nodig te verwijderen.
- * Het component gebruikt Angular Material's uitklapbare panelen om event details te tonen.
- * 
- * Features:
- * - Laadt alle events met hun inschrijvingsaantallen bij initialisatie
- * - Toont events in een visueel onderscheidende Bauhaus stijl
- * - Biedt mogelijkheid om inschrijvingsdetails per event te bekijken
- * - Ondersteunt het verwijderen van individuele inschrijvingen
- * - Toont loading indicatoren tijdens asynchrone operaties
- * - Toont KPI statistieken in overzichtelijke kaarten
- */
 @Component({
   selector: 'app-admin-event-board',
   templateUrl: './admindashboard.component.html',
   styleUrls: ['./admindashboard.component.css'],
   standalone: true,
   imports: [
-    /* Angular Material componenten voor UI */
     MatExpansionModule, MatButtonModule, MatIconModule, MatSnackBarModule,
-    /* Angular common directives voor template logica */
-    CommonModule,
-    /* Reactive forms for event creation */
+     CommonModule,
     ReactiveFormsModule,
-    /* Map picker for location creation */
-    MapPickerComponent,
-    /* KPI Card Component */
     KpiCardComponent,
-    /* Registration table component */
     RegistrationTableComponent,
-    /* Location card component */
     LocationCardComponent,
-    /* Event admin card component */
     EventAdminCardComponent,
-    /* Create event modal component */
     CreateEventModalComponent,
     CreateLocationModalComponent
   ]
 })
 export class AdminEventBoardComponent implements OnInit {
-  // Array om events met hun registratie data op te slaan
   events: EventWithRegistrationsCount[] = [];
   
-  // Vlag om data loading status bij te houden
+  
   loading = false;
   
   // KPI eigenschappen voor dashboard statistieken

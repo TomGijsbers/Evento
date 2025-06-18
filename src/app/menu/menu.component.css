@@ -1,12 +1,13 @@
+/* Hoofdnavigatie styling in Bauhaus stijl */
 .bauhaus-nav {
   background-color: white;
   border-bottom: 5px solid black;
   box-shadow: 0 4px 0 rgba(0,0,0,0.1);
   position: relative;
-  z-index: 100; /* Ensure the nav bar itself is on a higher stacking context */
+  z-index: 100; /* Zorgt ervoor dat de navigatiebalk bovenop andere content staat */
 }
 
-/* Geometric decorative elements */
+/* Geometrische decoratieve elementen voor visuele interesse */
 .nav-geometric-shape-1 {
   position: absolute;
   width: 60px;

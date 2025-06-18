@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -16,29 +17,36 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  // Indicator of er momenteel een database controle bezig is
   isChecking = false;
+  // Status van de database synchronisatie
   dbStatus: { success: boolean, message: string } | null = null;
+  // Naam van de ingelogde gebruiker
   userName: string = '';
 
   constructor(
-    public auth: AuthService,
-    private profileSvc: ProfileService,
-    private router: Router
+    public auth: AuthService,        // Auth0 service voor authenticatie
+    private profileSvc: ProfileService, // Service voor gebruikersprofiel beheer
+    private router: Router           // Router voor navigatie
   ) {}
 
+  /**
+   * Angular lifecycle hook - uitgevoerd na component initialisatie
+   * Haalt gebruikersnaam op en synchroniseert gebruiker met database
+   */
   ngOnInit(): void {
-    // Extract user's name when authenticated
+    // Gebruikersnaam ophalen wanneer geauthenticeerd
     this.auth.user$.subscribe(user => {
       if (user) {
-        // Use nickname, name, or email as fallbacks
-        this.userName = user.nickname || user.name || user.email || 'valued user';
+        // Gebruik nickname, name, of email als fallbacks
+        this.userName = user.nickname || user.name || user.email || 'gewaardeerde gebruiker';
       }
     });
 
-    // Handle DB sync for authenticated users
+    // Database synchronisatie voor geauthenticeerde gebruikers
     this.auth.isAuthenticated$.pipe(
-      filter(v => v),
-      take(1),
+      filter(v => v),        // Alleen verder als gebruiker is ingelogd
+      take(1),               // Slechts één keer uitvoeren
       switchMap(() => {
         this.isChecking = true;
         return this.profileSvc.ensureUserInDb();
@@ -57,6 +65,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Herlaadt de database synchronisatie handmatig
+   * Kan gebruikt worden als de eerste poging is mislukt
+   */
   reload() {
     this.isChecking = true;
     this.dbStatus = null;
@@ -75,10 +87,18 @@ export class HomeComponent implements OnInit {
     });
   }
   
+  /**
+   * Start het inlogproces via Auth0
+   * Redirect gebruiker naar Auth0 login pagina
+   */
   login() {
     this.auth.loginWithRedirect();
   }
   
+  /**
+   * Navigeert naar de events pagina
+   * Voor het bekijken van beschikbare evenementen
+   */
   navigateToEvents() {
     this.router.navigate(['/events']);
   }

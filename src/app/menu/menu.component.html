@@ -10,27 +10,27 @@
     <ul [class.mobile-menu-open]="isMobileMenuOpen()">
       <!-- altijd zichtbaar -->
       <li><a routerLink="/" routerLinkActive="active" (click)="closeMobileMenu()">
-        <i class="pi pi-home"></i> Home
+        <i class="pi pi-home"></i> Startpagina
       </a></li>
 
       <!-- alleen ingelogd -->
       @if (isAuthenticated()) {
         <!-- voor alle rollen -->
         <li><a routerLink="/events" routerLinkActive="active" (click)="closeMobileMenu()">
-          <i class="pi pi-calendar"></i> Events
+          <i class="pi pi-calendar"></i> Evenementen
         </a></li>
         <li><a routerLink="/profile" routerLinkActive="active" (click)="closeMobileMenu()">
-          <i class="pi pi-user"></i> Profile
+          <i class="pi pi-user"></i> Profiel
         </a></li>
 
         <!-- TeamLeader extra -->
         @if (isTeamLeader()) {
           <li><a routerLink="/locations" routerLinkActive="active" (click)="closeMobileMenu()">
-            <i class="pi pi-map-marker"></i> Locations
+            <i class="pi pi-map-marker"></i> Locaties
           </a></li>
           @if (!isAdmin()) {
             <li><a routerLink="/teamleader/create-event" routerLinkActive="active" (click)="closeMobileMenu()">
-              <i class="pi pi-plus"></i> Event aanmaken
+              <i class="pi pi-plus"></i> Evenement Aanmaken
             </a></li>
           }
         }
@@ -38,7 +38,7 @@
         <!-- Admin extra -->
         @if (isAdmin()) {
           <li><a routerLink="/admin" routerLinkActive="active" (click)="closeMobileMenu()">
-            <i class="pi pi-cog"></i> Admin
+            <i class="pi pi-cog"></i> Beheer
           </a></li>
         }
       }
@@ -47,15 +47,15 @@
       <li class="ml-auto flex">
         @if (!isAuthenticated()) {
           <button class="button__login" (click)="handleLogin()">
-            <i class="pi pi-sign-in"></i> Login
+            <i class="pi pi-sign-in"></i> Inloggen
           </button>
           <button class="button__signup" (click)="handleSignUp()">
-            <i class="pi pi-user-plus"></i> Sign up
+            <i class="pi pi-user-plus"></i> Registreren
           </button>
         }
         @if (isAuthenticated()) {
           <button class="button__logout" (click)="handleLogout()">
-            <i class="pi pi-sign-out"></i> Logout
+            <i class="pi pi-sign-out"></i> Uitloggen
           </button>
         }
       </li>

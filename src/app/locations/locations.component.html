@@ -1,18 +1,17 @@
-<!-- locations.component.html -->
 <div class="relative min-h-screen bg-white overflow-hidden">
-  <!-- Bauhaus geometric background elements -->
+  <!-- Bauhaus geometrische achtergrond-elementen -->
   <div class="absolute top-0 right-0 h-48 w-48 bg-yellow-500 -translate-y-1/3 translate-x-1/4"></div>
   <div class="absolute bottom-0 left-0 h-64 w-64 bg-blue-600 rounded-full translate-y-1/4 -translate-x-1/4"></div>
   <div class="absolute top-1/2 left-1/4 h-20 w-20 bg-red-600"></div>
   
-  <!-- Content container -->
+  <!-- Inhoudcontainer -->
   <div class="relative z-10 container mx-auto p-4 md:p-8">
     <h1 class="text-4xl md:text-5xl font-bold text-black uppercase tracking-tighter mb-8">
-      Loca<span class="text-red-600">tions</span>
+      Loca<span class="text-red-600">ties</span>
     </h1>
     <div class="h-2 w-32 bg-yellow-500 mb-12"></div>
 
-    <!-- ── List  ──────────────────────────────────────────────────── -->
+    <!-- ── Lijst  ──────────────────────────────────────────────────── -->
     <div *ngIf="loading" class="bauhaus-loader py-16">
       <div class="bauhaus-loader-container">
         <div class="bauhaus-square bg-red-600"></div>
@@ -27,7 +26,7 @@
     </div>
     
     <div *ngIf="error" class="bg-red-600 text-white p-4 text-center font-bold uppercase">
-      Error loading locations – try again later.
+      Fout bij het laden van locaties – probeer het later opnieuw.
     </div>
 
     <div *ngIf="!loading && !error" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -37,8 +36,8 @@
         <h3 class="text-xl font-bold uppercase tracking-tighter mb-2">{{ location.name }}</h3>
         <div class="h-1 w-16" [ngClass]="{'bg-red-600': location.id % 3 === 0, 'bg-blue-600': location.id % 3 === 1, 'bg-yellow-500': location.id % 3 === 2}"></div>
         <div class="mt-4 space-y-2">
-          <p><span class="font-bold">Address:</span> {{ location.address }}</p>
-          <p><span class="font-bold">Coordinates:</span> {{ location.latitude }}, {{ location.longitude }}</p>
+          <p><span class="font-bold">Adres:</span> {{ location.address }}</p>
+          <p><span class="font-bold">Coördinaten:</span> {{ location.latitude }}, {{ location.longitude }}</p>
         </div>
       </div>
     </div>
