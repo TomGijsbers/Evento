@@ -8,6 +8,7 @@ import { EventsComponent } from './events/events.component';
 import { ProfileComponent } from './profile/profile.component'; // Import the ProfileComponent
 import { LocationsComponent } from './locations/locations.component';
 import { TeamleaderCreateEventComponent } from './teamleader-create-event/teamleader-create-event.component'; // Added import
+import { GroupComponent } from './group/group.component'; // Import the GroupComponent
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
 
   /* Admin --------------------------------------------------------*/
   { path: 'admin', component: AdminEventBoardComponent, canActivate: [AuthGuard, adminGuard] },
+  { path: 'group', component: GroupComponent, canActivate: [AuthGuard, adminGuard] },
 
   /* Overig */
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
