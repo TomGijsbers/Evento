@@ -1,0 +1,90 @@
+<div class="min-h-screen bg-gray-100 p-6">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <div class="bg-red-600 p-6">
+        <h1 class="text-3xl font-bold text-white uppercase tracking-wider">GROEPEN BEHEER</h1>
+        <p class="text-red-100 mt-2 font-medium">Beheer je groepen en teamleden</p>
+      </div>
+      <div class="p-6 bg-yellow-400">
+        <button 
+          (click)="onCreateGroup()"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-bold border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform uppercase">
+          + NIEUWE GROEP
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-12">
+    <div class="bg-white border-4 border-black p-8 inline-block shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <!-- BAUHAUS LOADER -->
+      <div class="bauhaus-loader py-8">
+        <div class="bauhaus-loader-container">
+          <div class="bauhaus-square bg-red-600"></div>
+          <div class="bauhaus-square bg-blue-600"></div>
+          <div class="bauhaus-square bg-yellow-400"></div>
+          <div class="bauhaus-circle border-8 border-black"></div>
+          <div class="bauhaus-triangle"></div>
+        </div>
+        <p class="mt-4 font-bold uppercase tracking-wider text-center">
+          LADEN...
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Groups Grid -->
+  <div *ngIf="!isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <app-group-card
+      *ngFor="let group of groups"
+      [group]="group"
+      [userRole]="currentUserRole"
+      [isTeamLeader]="isTeamLeader(group)"
+      (onView)="onViewGroup($event)"
+      (onEdit)="onEditGroup($event)"
+      (onDelete)="onDeleteGroup($event)"
+      (onLeave)="onLeaveGroup($event)">
+    </app-group-card>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && groups.length === 0" class="text-center py-12">
+    <div class="bg-white border-4 border-black p-8 max-w-md mx-auto shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <div class="w-16 h-16 bg-gray-300 border-4 border-black mx-auto mb-4"></div>
+      <h3 class="text-xl font-bold text-black uppercase mb-2 tracking-wider">GEEN GROEPEN</h3>
+      <p class="text-gray-600 font-medium mb-4">Je bent nog geen lid van een groep.</p>
+      <button 
+        (click)="onCreateGroup()"
+        class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 font-bold border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform uppercase">
+        EERSTE GROEP MAKEN
+      </button>
+    </div>
+  </div>
+
+  <!-- Create Group Modal -->
+  <app-create-group
+    *ngIf="showCreateGroup"
+    (onCancel)="onCancelCreate()"
+    (onCreated)="onGroupCreated()">
+  </app-create-group>
+
+  <!-- Members View Modal -->
+  <div *ngIf="showMembers && selectedGroupId" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white border-4 border-black max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <div class="bg-blue-600 p-4 flex justify-between items-center">
+        <h2 class="text-xl font-bold text-white uppercase tracking-wider">GROEPSLEDEN</h2>
+        <button 
+          (click)="closeMembersView()"
+          class="bg-red-600 hover:bg-red-700 text-white w-10 h-10 font-bold border-2 border-black transition-colors">
+          ✕
+        </button>
+      </div>
+      <app-group-members
+        [groupId]="selectedGroupId"
+        [userRole]="currentUserRole">
+      </app-group-members>
+    </div>
+  </div>
+</div>

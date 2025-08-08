@@ -1,0 +1,121 @@
+/* Bauhaus Design Principles */
+.bauhaus-card {
+  @apply bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)];
+}
+
+.bauhaus-button {
+  @apply font-bold border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-y-[-2px];
+}
+
+.bauhaus-primary {
+  @apply bg-red-600 text-white;
+}
+
+.bauhaus-secondary {
+  @apply bg-blue-600 text-white;
+}
+
+.bauhaus-accent {
+  @apply bg-yellow-400 text-black;
+}
+
+.bauhaus-success {
+  @apply bg-green-500 text-white;
+}
+
+.bauhaus-danger {
+  @apply bg-red-600 text-white;
+}
+
+.bauhaus-purple {
+  @apply bg-purple-500 text-white;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold uppercase tracking-wider;
+}
+
+/* BAUHAUS LOADER */
+.bauhaus-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bauhaus-loader-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: bauhaus-pulse 2s infinite ease-in-out;
+}
+
+.bauhaus-square {
+  width: 20px;
+  height: 20px;
+  animation: bauhaus-rotate 3s infinite linear;
+}
+
+.bauhaus-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: transparent;
+  animation: bauhaus-bounce 1.5s infinite ease-in-out;
+}
+
+.bauhaus-triangle {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 20px solid #000;
+  animation: bauhaus-scale 2s infinite ease-in-out;
+}
+
+/* Bauhaus Animations */
+@keyframes bauhaus-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bauhaus-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bauhaus-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bauhaus-scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Geometric shapes */
+.bauhaus-circle {
+  @apply rounded-full;
+}
+
+.bauhaus-square {
+  @apply rounded-none;
+}
